@@ -6,6 +6,8 @@ import io.circe.generic.auto._
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.circe._
 import sttp.tapir.redoc.bundle.RedocInterpreter
+import sttp.tapir.redoc.RedocUIOptions
+import sttp.tapir.redoc.bundle.RedocInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.Task
 import zio.ZIO
@@ -31,13 +33,49 @@ object Endpoints {
 }
 
 object Library {
-  case class Author(name: String)
-  case class Book(title: String, year: Int, author: Author)
+  case class CcA(name: String)
+  case class CcB(name: String)
+  case class CcC(name: String)
+  case class CcD(name: String)
+
+  case class Book(
+      title: String,
+      year: Int,
+      a1: CcA,
+      a2: CcA,
+      @Schema.annotations.deprecated b1: CcB,
+      b2: CcB,
+      c1: CcC,
+      @Schema.annotations.deprecated c2: CcC,
+      @Schema.annotations.deprecated d1: CcD,
+      @Schema.annotations.deprecated d2: CcD
+  )
 
   val books = List(
-    Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe")),
-    Book("On the Niemen", 1888, Author("Eliza Orzeszkowa")),
-    Book("The Art of Computer Programming", 1968, Author("Donald Knuth")),
-    Book("Pharaoh", 1897, Author("Boleslaw Prus"))
+    Book(
+      "A The Sorrows of Young Werther",
+      1774,
+      CcA("A a1"),
+      CcA("A a2"),
+      CcB("A b1"),
+      CcB("A b2"),
+      CcC("A c1"),
+      CcC("A c2"),
+      CcD("A d1"),
+      CcD("A d2")
+    ),
+    Book(
+      "C The Art of Computer Programming",
+      1968,
+      CcA("C a1"),
+      CcA("C a2"),
+      CcB("C b1"),
+      CcB("C b2"),
+      CcC("C c1"),
+      CcC("C c2"),
+      CcD("C d1"),
+      CcD("C d2")
+    )
   )
+
 }
