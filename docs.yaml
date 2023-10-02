@@ -46,7 +46,6 @@ components:
       properties:
         s:
           type: string
-      deprecated: true
     Book:
       required:
       - title
@@ -98,7 +97,7 @@ components:
         name:
           type: string
         aName:
-          $ref: '#/components/schemas/AName'
+          $ref: '#/components/schemas/CcName'
     CcC:
       required:
       - name
@@ -115,4 +114,8 @@ components:
         name:
           type: string
         aName:
-          $ref: '#/components/schemas/AName'
+          $ref: '#/components/schemas/CcName'
+    CcName:
+      deprecated: true
+      oneOf:
+      - $ref: '#/components/schemas/AName'

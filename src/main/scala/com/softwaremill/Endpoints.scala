@@ -38,9 +38,9 @@ object Library {
   sealed trait CcName
   case class AName(s: String) extends CcName
   case class CcA(name: String)
-  case class CcB(name: String, @Schema.annotations.deprecated aName: AName)
+  case class CcB(name: String, @Schema.annotations.deprecated aName: CcName)
   case class CcC(name: String)
-  case class CcD(name: String, @Schema.annotations.deprecated aName: AName)
+  case class CcD(name: String, @Schema.annotations.deprecated aName: CcName)
 
   case class Book(
       title: String,
