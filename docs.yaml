@@ -7,11 +7,11 @@ paths:
     get:
       operationId: getHello
       parameters:
-      - name: name
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: ''
@@ -39,18 +39,29 @@ paths:
                   $ref: '#/components/schemas/Book'
 components:
   schemas:
-    Author:
+    AZ:
       required:
-      - name
+        - name
       type: object
       properties:
         name:
           type: string
+    BZ:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      deprecated: true
     Book:
       required:
-      - title
-      - year
-      - author
+        - title
+        - year
+        - a1
+        - b1
+        - c1
+        - d1
       type: object
       properties:
         title:
@@ -58,5 +69,35 @@ components:
         year:
           type: integer
           format: int32
-        author:
-          $ref: '#/components/schemas/Author'
+          deprecated: true
+        a1:
+          $ref: '#/components/schemas/AZ'
+        a2:
+          $ref: '#/components/schemas/AZ'
+        b1:
+          $ref: '#/components/schemas/BZ'
+        b2:
+          $ref: '#/components/schemas/BZ'
+        c1:
+          $ref: '#/components/schemas/CZ'
+        c2:
+          $ref: '#/components/schemas/CZ'
+        d1:
+          $ref: '#/components/schemas/DZ'
+        d2:
+          $ref: '#/components/schemas/DZ'
+    CZ:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+    DZ:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      deprecated: true

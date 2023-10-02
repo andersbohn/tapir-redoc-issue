@@ -33,13 +33,76 @@ object Endpoints {
 }
 
 object Library {
-  case class Author(name: String)
-  case class Book(title: String, @Schema.annotations.deprecated year: Int, @Schema.annotations.deprecated author: Author)
+  case class CcA(name: String)
+  case class CcB(name: String)
+  case class CcC(name: String)
+  case class CcD(name: String)
+  case class CcE(name: String)
+  case class CcF(name: String)
+  case class CcG(name: String)
+  case class CcH(name: String)
+  case class Book(
+      title: String,
+      year: Int,
+      a1: CcA,
+      a2: CcA,
+      @Schema.annotations.deprecated b1: CcB,
+      b2: CcB,
+      c1: CcC,
+      @Schema.annotations.deprecated c2: CcC,
+      @Schema.annotations.deprecated d1: CcD,
+      @Schema.annotations.deprecated d2: CcD,
+      e1: CcE,
+      e2: Option[CcE],
+      @Schema.annotations.deprecated f1: CcF,
+      f2: Option[CcF],
+      g1: CcG,
+      @Schema.annotations.deprecated g2: Option[CcG],
+      @Schema.annotations.deprecated h1: CcH,
+      @Schema.annotations.deprecated h2: Option[CcH]
+  )
 
   val books = List(
-    Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe")),
-    Book("On the Niemen", 1888, Author("Eliza Orzeszkowa")),
-    Book("The Art of Computer Programming", 1968, Author("Donald Knuth")),
-    Book("Pharaoh", 1897, Author("Boleslaw Prus"))
+    Book(
+      "A The Sorrows of Young Werther",
+      1774,
+      CcA("A a1"),
+      CcA("A a2"),
+      CcB("A b1"),
+      CcB("A b2"),
+      CcC("A c1"),
+      CcC("A c2"),
+      CcD("A d1"),
+      CcD("A 22"),
+      CcE("A e1"),
+      Some(CcE("A e2")),
+      CcF("A f1"),
+      Some(CcF("A f2")),
+      CcG("A g1"),
+      Some(CcG("A g2")),
+      CcH("A h1"),
+      Some(CcH("A h2"))
+    ),
+    Book(
+      "C The Art of Computer Programming",
+      1968,
+      CcA("C a1"),
+      CcA("C a2"),
+      CcB("C b1"),
+      CcB("C b2"),
+      CcC("C c1"),
+      CcC("C c2"),
+      CcD("C d1"),
+      CcD("C 22"),
+      CcE("C e1"),
+      Some(CcE("C e2")),
+      CcF("C f1"),
+      Some(CcF("C f2")),
+      CcG("C g1"),
+      Some(CcG("C g2")),
+      CcH("C h1"),
+      Some(CcH("C h2"))
+    )
   )
+
 }
