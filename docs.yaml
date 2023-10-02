@@ -39,6 +39,14 @@ paths:
                   $ref: '#/components/schemas/Book'
 components:
   schemas:
+    AName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+      deprecated: true
     Book:
       required:
       - title
@@ -84,11 +92,13 @@ components:
     CcB:
       required:
       - name
+      - aName
       type: object
       properties:
         name:
           type: string
-      deprecated: true
+        aName:
+          $ref: '#/components/schemas/AName'
     CcC:
       required:
       - name
@@ -99,8 +109,10 @@ components:
     CcD:
       required:
       - name
+      - aName
       type: object
       properties:
         name:
           type: string
-      deprecated: true
+        aName:
+          $ref: '#/components/schemas/AName'
