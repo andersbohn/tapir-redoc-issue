@@ -39,18 +39,25 @@ paths:
                   $ref: '#/components/schemas/Book'
 components:
   schemas:
-    Author:
+    AName:
       required:
-      - name
+      - s
       type: object
       properties:
-        name:
+        s:
           type: string
     Book:
       required:
       - title
       - year
-      - author
+      - a1
+      - a2
+      - b1
+      - b2
+      - c1
+      - c2
+      - d1
+      - d2
       type: object
       properties:
         title:
@@ -58,5 +65,57 @@ components:
         year:
           type: integer
           format: int32
-        author:
-          $ref: '#/components/schemas/Author'
+        a1:
+          $ref: '#/components/schemas/CcA'
+        a2:
+          $ref: '#/components/schemas/CcA'
+        b1:
+          $ref: '#/components/schemas/CcB'
+        b2:
+          $ref: '#/components/schemas/CcB'
+        c1:
+          $ref: '#/components/schemas/CcC'
+        c2:
+          $ref: '#/components/schemas/CcC'
+        d1:
+          $ref: '#/components/schemas/CcD'
+        d2:
+          $ref: '#/components/schemas/CcD'
+    CcA:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+    CcB:
+      required:
+      - name
+      - aName
+      type: object
+      properties:
+        name:
+          type: string
+        aName:
+          $ref: '#/components/schemas/CcName'
+    CcC:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+    CcD:
+      required:
+      - name
+      - aName
+      type: object
+      properties:
+        name:
+          type: string
+        aName:
+          $ref: '#/components/schemas/CcName'
+    CcName:
+      deprecated: true
+      oneOf:
+      - $ref: '#/components/schemas/AName'

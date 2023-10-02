@@ -3,8 +3,11 @@ package com.softwaremill
 import sttp.tapir._
 import Library._
 import io.circe.generic.auto._
+import sttp.tapir.Schema.annotations.encodedName
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.circe._
+import sttp.tapir.redoc.bundle.RedocInterpreter
+import sttp.tapir.redoc.RedocUIOptions
 import sttp.tapir.redoc.bundle.RedocInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.Task
@@ -31,13 +34,52 @@ object Endpoints {
 }
 
 object Library {
-  case class Author(name: String)
-  case class Book(title: String, year: Int, author: Author)
+
+  sealed trait CcName
+  case class AName(s: String) extends CcName
+  case class CcA(name: String)
+  case class CcB(name: String, @Schema.annotations.deprecated aName: CcName)
+  case class CcC(name: String)
+  case class CcD(name: String, @Schema.annotations.deprecated aName: CcName)
+
+  case class Book(
+      title: String,
+      year: Int,
+      a1: CcA,
+      a2: CcA,
+      b1: CcB,
+      b2: CcB,
+      c1: CcC,
+      c2: CcC,
+      d1: CcD,
+      d2: CcD
+  )
 
   val books = List(
-    Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe")),
-    Book("On the Niemen", 1888, Author("Eliza Orzeszkowa")),
-    Book("The Art of Computer Programming", 1968, Author("Donald Knuth")),
-    Book("Pharaoh", 1897, Author("Boleslaw Prus"))
+    Book(
+      "A The Sorrows of Young Werther",
+      1774,
+      CcA("A a1"),
+      CcA("A a2"),
+      CcB("A b1", AName("ab1")),
+      CcB("A b2", AName("ab2")),
+      CcC("A c1"),
+      CcC("A c2"),
+      CcD("A d1", AName("ad1")),
+      CcD("A d2", AName("ad2"))
+    ),
+    Book(
+      "C The Art of Computer Programming",
+      1968,
+      CcA("C a1"),
+      CcA("C a2"),
+      CcB("C b1", AName("cb1")),
+      CcB("C b2", AName("cb2")),
+      CcC("C c1"),
+      CcC("C c2"),
+      CcD("C d1", AName("cd1")),
+      CcD("C d2", AName("cd2"))
+    )
   )
+
 }
