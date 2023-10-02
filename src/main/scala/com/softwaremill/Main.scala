@@ -1,12 +1,12 @@
 package com.softwaremill
 
-import com.comcast.ip4s.{Host, IpLiteralSyntax, Port}
+import com.comcast.ip4s.{ Host, IpLiteralSyntax, Port }
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.Router
 import sttp.tapir.server.http4s.ztapir.ZHttp4sServerInterpreter
 import zio.interop.catz._
 import zio.stream.interop.fs2z.io.networkInstance
-import zio.{Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault, Console}
+import zio.{ Console, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault }
 
 object Main extends ZIOAppDefault {
 

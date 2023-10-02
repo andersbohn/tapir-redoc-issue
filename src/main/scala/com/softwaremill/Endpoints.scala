@@ -1,12 +1,12 @@
 package com.softwaremill
 
 import sttp.tapir._
-
 import Library._
 import io.circe.generic.auto._
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.circe._
-import sttp.tapir.swagger.bundle.SwaggerInterpreter
+import sttp.tapir.redoc.RedocUIOptions
+import sttp.tapir.redoc.bundle.RedocInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.Task
 import zio.ZIO
@@ -26,15 +26,17 @@ object Endpoints {
 
   val apiEndpoints: List[ZServerEndpoint[Any, Any]] = List(helloServerEndpoint, booksListingServerEndpoint)
 
-  val docEndpoints: List[ZServerEndpoint[Any, Any]] = SwaggerInterpreter()
-    .fromServerEndpoints[Task](apiEndpoints, "vague-chipmunk", "1.0.0")
+  val docEndpoints: List[ZServerEndpoint[Any, Any]] = RedocInterpreter(
+//    FIXME wut ? customiseDocsModel = _.servers(List(Server("/v1", None))),
+//    FIXME affecst? redocUIOptions = RedocUIOptions.default.pathPrefix(List("v1", "docs"))
+  ).fromServerEndpoints[Task](apiEndpoints, "vague-chipmunk", "1.0.0")
 
   val all: List[ZServerEndpoint[Any, Any]] = apiEndpoints ++ docEndpoints
 }
 
 object Library {
   case class Author(name: String)
-  case class Book(title: String, year: Int, author: Author)
+  case class Book(title: String, @Schema.annotations.deprecated year: Int, @Schema.annotations.deprecated author: Author)
 
   val books = List(
     Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe")),
