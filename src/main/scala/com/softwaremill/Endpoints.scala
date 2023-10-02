@@ -1,12 +1,11 @@
 package com.softwaremill
 
 import sttp.tapir._
-
 import Library._
 import io.circe.generic.auto._
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.circe._
-import sttp.tapir.swagger.bundle.SwaggerInterpreter
+import sttp.tapir.redoc.bundle.RedocInterpreter
 import sttp.tapir.ztapir.ZServerEndpoint
 import zio.Task
 import zio.ZIO
@@ -26,8 +25,7 @@ object Endpoints {
 
   val apiEndpoints: List[ZServerEndpoint[Any, Any]] = List(helloServerEndpoint, booksListingServerEndpoint)
 
-  val docEndpoints: List[ZServerEndpoint[Any, Any]] = SwaggerInterpreter()
-    .fromServerEndpoints[Task](apiEndpoints, "vague-chipmunk", "1.0.0")
+  val docEndpoints: List[ZServerEndpoint[Any, Any]] = RedocInterpreter().fromServerEndpoints[Task](apiEndpoints, "vague-chipmunk", "1.0.0")
 
   val all: List[ZServerEndpoint[Any, Any]] = apiEndpoints ++ docEndpoints
 }
