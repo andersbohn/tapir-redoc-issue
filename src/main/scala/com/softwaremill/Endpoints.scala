@@ -32,12 +32,12 @@ object Endpoints {
 
 object Library {
   case class Author(name: String)
-  case class Book(title: String, year: Int, author: Author)
+  case class Book(title: String, year: Int, @Schema.annotations.deprecated author: Author, coAuthor: Author)
 
   val books = List(
-    Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe")),
-    Book("On the Niemen", 1888, Author("Eliza Orzeszkowa")),
-    Book("The Art of Computer Programming", 1968, Author("Donald Knuth")),
-    Book("Pharaoh", 1897, Author("Boleslaw Prus"))
+    Book("The Sorrows of Young Werther", 1774, Author("Johann Wolfgang von Goethe"), Author("helper")),
+    Book("On the Niemen", 1888, Author("Eliza Orzeszkowa"), Author("helper")),
+    Book("The Art of Computer Programming", 1968, Author("Donald Knuth"), Author("helper")),
+    Book("Pharaoh", 1897, Author("Boleslaw Prus"), Author("helper"))
   )
 }
