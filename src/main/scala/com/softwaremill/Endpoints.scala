@@ -46,6 +46,8 @@ object Library {
       title: String,
       year: Int,
       aName: AName,
+      @Schema.annotations.deprecated
+      deprAName: AName,
       bName: BName,
       cName: CcName,
       dName: CcName

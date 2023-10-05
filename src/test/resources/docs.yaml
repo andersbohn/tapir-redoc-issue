@@ -59,6 +59,7 @@ components:
       - title
       - year
       - aName
+      - deprAName
       - bName
       - cName
       - dName
@@ -70,6 +71,8 @@ components:
           type: integer
           format: int32
         aName:
+          $ref: '#/components/schemas/AName'
+        deprAName:
           $ref: '#/components/schemas/AName'
         bName:
           $ref: '#/components/schemas/BName'
