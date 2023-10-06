@@ -55,7 +55,7 @@ object Library {
   implicit val aNameSchema: Schema[AName] = Schema.derived[AName]
   implicit val bNameSchema: Schema[BName] = Schema.derived[BName]
   implicit val eventASchema: Schema[EventA] = Schema.derived[EventA]
-  implicit val eventBSchema: Schema[EventB] = Schema.derived[EventB]
+  implicit val eventBSchema: Schema[EventB] = Schema.derived[EventB].modify(_.deprAName)(_.name(None)).name(None)
   implicit val eventCSchema: Schema[EventC] = Schema.derived[EventC]
   implicit val eventDSchema: Schema[EventD] = Schema.derived[EventD]
   implicit val eventSchema: Schema[Event] = Schema.derived[Event]
