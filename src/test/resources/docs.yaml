@@ -3,9 +3,9 @@ info:
   title: vague-chipmunk
   version: 1.0.0
 paths:
-  /bookAs/list/all:
+  /events/list/all:
     get:
-      operationId: getBookasListAll
+      operationId: getEventsListAll
       responses:
         '200':
           description: ''
@@ -14,60 +14,87 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BookA'
-  /bookBs/list/all:
-    get:
-      operationId: getBookbsListAll
+                  $ref: '#/components/schemas/Event'
+  /events:
+    post:
+      operationId: postEvents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
       responses:
         '200':
           description: ''
+        '400':
+          description: 'Invalid value for: body'
           content:
-            application/json:
+            text/plain:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BookB'
+                type: string
 components:
   schemas:
-    BookA:
+    AName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+    BName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+    Event:
+      oneOf:
+      - $ref: '#/components/schemas/EventA'
+      - $ref: '#/components/schemas/EventB'
+      - $ref: '#/components/schemas/EventC'
+      - $ref: '#/components/schemas/EventD'
+    EventA:
       required:
       - aName
-      - deprAName
+      - anotherName
       type: object
       properties:
         aName:
-          required:
-          - s
-          type: object
-          properties:
-            s:
-              type: string
+          $ref: '#/components/schemas/AName'
+        anotherName:
+          $ref: '#/components/schemas/AName'
+    EventB:
+      required:
+      - aName
+      - deprAName
+      - bName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
         deprAName:
-          required:
-          - s
-          type: object
-          properties:
-            s:
-              type: string
-          deprecated: true
-    BookB:
+          $ref: '#/components/schemas/AName'
+        bName:
+          $ref: '#/components/schemas/BName'
+    EventC:
       required:
       - deprBName
       - bName
       type: object
       properties:
         deprBName:
-          required:
-          - s
-          type: object
-          properties:
-            s:
-              type: string
-          deprecated: true
+          $ref: '#/components/schemas/BName'
         bName:
-          required:
-          - s
-          type: object
-          properties:
-            s:
-              type: string
+          $ref: '#/components/schemas/BName'
+    EventD:
+      required:
+      - aName
+      - bName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/BName'
+        bName:
+          $ref: '#/components/schemas/BName'
