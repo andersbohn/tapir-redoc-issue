@@ -3,31 +3,9 @@ info:
   title: vague-chipmunk
   version: 1.0.0
 paths:
-  /hello:
+  /bookAs/list/all:
     get:
-      operationId: getHello
-      parameters:
-      - name: name
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-        '400':
-          description: 'Invalid value for: query parameter name'
-          content:
-            text/plain:
-              schema:
-                type: string
-  /books/list/all:
-    get:
-      operationId: getBooksListAll
+      operationId: getBookasListAll
       responses:
         '200':
           description: ''
@@ -36,7 +14,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/BookA'
+  /bookBs/list/all:
+    get:
+      operationId: getBookbsListAll
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookB'
 components:
   schemas:
     AName:
@@ -48,39 +38,29 @@ components:
           type: string
     BName:
       required:
-      - i
+      - s
       type: object
       properties:
-        i:
-          type: integer
-          format: int32
-    Book:
+        s:
+          type: string
+      deprecated: true
+    BookA:
       required:
-      - title
-      - year
       - aName
       - deprAName
-      - bName
-      - cName
-      - dName
       type: object
       properties:
-        title:
-          type: string
-        year:
-          type: integer
-          format: int32
         aName:
           $ref: '#/components/schemas/AName'
         deprAName:
           $ref: '#/components/schemas/AName'
+    BookB:
+      required:
+      - deprBName
+      - bName
+      type: object
+      properties:
+        deprBName:
+          $ref: '#/components/schemas/BName'
         bName:
           $ref: '#/components/schemas/BName'
-        cName:
-          $ref: '#/components/schemas/CcName'
-        dName:
-          $ref: '#/components/schemas/CcName'
-    CcName:
-      oneOf:
-      - $ref: '#/components/schemas/AName'
-      - $ref: '#/components/schemas/BName'
