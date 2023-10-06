@@ -41,8 +41,8 @@ object Library {
       bName: BName
   )
 
-  implicit val aNameSchema: Schema[AName] = Schema.derived[AName]
-  implicit val bNameSchema: Schema[BName] = Schema.derived[BName]
+  implicit val aNameSchema: Schema[AName] = Schema.derived[AName].name(None)
+  implicit val bNameSchema: Schema[BName] = Schema.derived[BName].name(None)
   implicit val bookASchema: Schema[BookA] = Schema.derived[BookA]
   implicit val bookBSchema: Schema[BookB] = Schema.derived[BookB]
 

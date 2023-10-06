@@ -29,21 +29,6 @@ paths:
                   $ref: '#/components/schemas/BookB'
 components:
   schemas:
-    AName:
-      required:
-      - s
-      type: object
-      properties:
-        s:
-          type: string
-    BName:
-      required:
-      - s
-      type: object
-      properties:
-        s:
-          type: string
-      deprecated: true
     BookA:
       required:
       - aName
@@ -51,9 +36,20 @@ components:
       type: object
       properties:
         aName:
-          $ref: '#/components/schemas/AName'
+          required:
+          - s
+          type: object
+          properties:
+            s:
+              type: string
         deprAName:
-          $ref: '#/components/schemas/AName'
+          required:
+          - s
+          type: object
+          properties:
+            s:
+              type: string
+          deprecated: true
     BookB:
       required:
       - deprBName
@@ -61,6 +57,17 @@ components:
       type: object
       properties:
         deprBName:
-          $ref: '#/components/schemas/BName'
+          required:
+          - s
+          type: object
+          properties:
+            s:
+              type: string
+          deprecated: true
         bName:
-          $ref: '#/components/schemas/BName'
+          required:
+          - s
+          type: object
+          properties:
+            s:
+              type: string

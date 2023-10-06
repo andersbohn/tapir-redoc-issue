@@ -15,11 +15,12 @@ object EndpointsSpec extends ZIOSpecDefault {
       import sttp.tapir.docs.openapi._
       val docs: OpenAPI =
         OpenAPIDocsInterpreter().toOpenAPI(List(Endpoints.bookAsListing, Endpoints.bookBsListing), "vague-chipmunk", "1.0.0")
+      val yaml = docs.toYaml
       if (false) {
-        Files.write(java.nio.file.Paths.get("gen-docs.yaml"), docs.toYaml.getBytes(StandardCharsets.UTF_8))
+        Files.write(java.nio.file.Paths.get("gen-docs.yaml"), yaml.getBytes(StandardCharsets.UTF_8))
       }
-      val expected = scala.io.Source.fromResource("docs.yaml").mkString
-      assertZIO(ZIO.succeed(docs.toYaml))(equalTo(expected))
+      val expected = scala.io.Source.fromResource("docs.yaml")(StandardCharsets.UTF_8).mkString
+      assertZIO(ZIO.succeed(yaml))(equalTo(expected))
     }
   )
 }
