@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: vague-chipmunk
+  version: 1.0.0
+paths:
+  /bookAs/list/all:
+    get:
+      operationId: getBookasListAll
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookA'
+  /bookBs/list/all:
+    get:
+      operationId: getBookbsListAll
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookB'
+components:
+  schemas:
+    AName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+    BName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+      deprecated: true
+    BookA:
+      required:
+      - aName
+      - deprAName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
+        deprAName:
+          $ref: '#/components/schemas/AName'
+    BookB:
+      required:
+      - deprBName
+      - bName
+      type: object
+      properties:
+        deprBName:
+          $ref: '#/components/schemas/BName'
+        bName:
+          $ref: '#/components/schemas/BName'

@@ -1,47 +1,25 @@
 package com.softwaremill
 
-import com.softwaremill.Endpoints._
-import sttp.client3.testing.SttpBackendStub
-import sttp.client3.{UriContext, basicRequest}
-import sttp.tapir.server.stub.TapirStubInterpreter
+import zio.ZIO
 import zio.test.Assertion._
 import zio.test.{ZIOSpecDefault, assertZIO}
 
-import Library._
-import io.circe.generic.auto._
-import sttp.client3.circe._
-import sttp.tapir.ztapir.RIOMonadError
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
 
 object EndpointsSpec extends ZIOSpecDefault {
   def spec = suite("Endpoints spec")(
-    test("return hello message") {
-      // given
-      val backendStub = TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
-        .whenServerEndpointRunLogic(helloServerEndpoint)
-        .backend()
-
-      // when
-      val response = basicRequest
-        .get(uri"http://test.com/hello?name=adam")
-        .send(backendStub)
-
-      // then
-      assertZIO(response.map(_.body))(isRight(equalTo("Hello adam")))
-    },
-    test("list available books") {
-      // given
-      val backendStub = TapirStubInterpreter(SttpBackendStub(new RIOMonadError[Any]))
-        .whenServerEndpointRunLogic(booksListingServerEndpoint)
-        .backend()
-
-      // when
-      val response = basicRequest
-        .get(uri"http://test.com/books/list/all")
-        .response(asJson[List[Book]])
-        .send(backendStub)
-
-      // then
-      assertZIO(response.map(_.body))(isRight(equalTo(books)))
+    test("expectd yaml") {
+      import sttp.apispec.openapi._
+      import sttp.apispec.openapi.circe.yaml._
+      import sttp.tapir.docs.openapi._
+      val docs: OpenAPI =
+        OpenAPIDocsInterpreter().toOpenAPI(List(Endpoints.bookAsListing, Endpoints.bookBsListing), "vague-chipmunk", "1.0.0")
+      if (false) {
+        Files.write(java.nio.file.Paths.get("gen-docs.yaml"), docs.toYaml.getBytes(StandardCharsets.UTF_8))
+      }
+      val expected = scala.io.Source.fromResource("docs.yaml").mkString
+      assertZIO(ZIO.succeed(docs.toYaml))(equalTo(expected))
     }
   )
 }
