@@ -76,6 +76,7 @@ components:
           $ref: '#/components/schemas/AName'
         deprAName:
           $ref: '#/components/schemas/AName'
+          deprecated: true
         bName:
           $ref: '#/components/schemas/BName'
     EventC:
@@ -86,6 +87,7 @@ components:
       properties:
         deprBName:
           $ref: '#/components/schemas/BName'
+          deprecated: true
         bName:
           $ref: '#/components/schemas/BName'
     EventD:

@@ -1,4 +1,4 @@
-val tapirVersion = "1.7.5"
+val tapirVersion = "1.8.0"
 
 lazy val rootProject = (project in file(".")).settings(
   Seq(
