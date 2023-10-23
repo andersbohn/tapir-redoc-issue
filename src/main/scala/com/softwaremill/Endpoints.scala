@@ -33,29 +33,51 @@ object Library {
   case class AName(s: String) extends CcName
   case class BName(s: String) extends CcName
 
-  sealed trait Event
+  sealed trait EventType
+  case object EventTypeA extends EventType
+  case object EventTypeB extends EventType
+
+  sealed trait EventParameters
+  case class EventParametersA(s:String) extends EventParameters
+  case class EventParametersB(@Schema.annotations.deprecated deprBName: BName) extends EventParameters
+
+  case class CreateEvent(eventType: EventType, eventToCreate: Event)
+
+  sealed trait Event {
+    def eventParameters: EventParameters
+  }
   case class EventA(
       aName: AName,
-      anotherName: AName
+      anotherName: AName,
+      eventParameters: EventParametersA
   ) extends Event
   case class EventB(
       aName: AName,
-      @Schema.annotations.deprecated deprAName: AName,
-      bName: BName
+//      @Schema.annotations.deprecated
+      deprAName: AName,
+      bName: BName,
+      eventParameters: EventParametersB
   )extends Event
   case class EventC(
-      @Schema.annotations.deprecated deprBName: BName,
-      bName: BName
+//      @Schema.annotations.deprecated
+      deprBName: BName,
+      bName: BName,
+      eventParameters: EventParametersA
   )extends Event
   case class EventD(
       aName: BName,
-      bName: BName
-  )extends Event
+      bName: BName,
+      eventParameters: EventParametersA
+  ) extends Event
 
+  implicit val eventTypeParametersASchema: Schema[EventParametersA] = Schema.derived[EventParametersA]
+  implicit val eventTypeParametersBSchema: Schema[EventParametersB] = Schema.derived[EventParametersB]
+//  implicit val eventTypeASchema: Schema[EventTypeA] = Schema.derived[EventTypeA]
+//  implicit val eventTypeBSchema: Schema[EventTypeB] = Schema.derived[EventTypeB]
   implicit val aNameSchema: Schema[AName] = Schema.derived[AName]
   implicit val bNameSchema: Schema[BName] = Schema.derived[BName]
   implicit val eventASchema: Schema[EventA] = Schema.derived[EventA]
-  implicit val eventBSchema: Schema[EventB] = Schema.derived[EventB].modify(_.deprAName)(_.name(None)).name(None)
+  implicit val eventBSchema: Schema[EventB] = Schema.derived[EventB]// TODO wut? .modify(_.deprAName)(_.name(None)).name(None)
   implicit val eventCSchema: Schema[EventC] = Schema.derived[EventC]
   implicit val eventDSchema: Schema[EventD] = Schema.derived[EventD]
   implicit val eventSchema: Schema[Event] = Schema.derived[Event]
