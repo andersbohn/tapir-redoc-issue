@@ -40,9 +40,9 @@ object Library {
   case object EventTypeB extends EventType
 
   sealed trait EventParameters
-  case class EventParametersA(s: String) extends EventParameters
+//  case class EventParametersA(s: String) extends EventParameters
   case class EventParametersB(@Schema.annotations.deprecated deprBName: BName) extends EventParameters
-  case class EventParametersC(deprBName: BName) extends EventParameters
+//  case class EventParametersC(deprBName: BName) extends EventParameters
 
 //  case class CreateEvent(eventType: EventType, eventToCreate: Event)
 
@@ -74,7 +74,7 @@ object Library {
   ) extends Event
 
 //  implicit val eventTypeParametersASchema: Schema[EventParametersA] = Schema.derived[EventParametersA]
-//  implicit val eventTypeParametersBSchema: Schema[EventParametersB] = Schema.derived[EventParametersB]
+  implicit val eventTypeParametersBSchema: Schema[EventParametersB] = Schema.derived[EventParametersB]
 //  implicit val eventTypeParametersCSchema: Schema[EventParametersC] = Schema.derived[EventParametersC]
   implicit val eventTypeSchema: Schema[EventType] = Schema.derived[EventType]
   implicit val aNameSchema: Schema[AName] = Schema.derived[AName]
