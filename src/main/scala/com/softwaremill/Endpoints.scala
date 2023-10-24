@@ -41,7 +41,7 @@ object Library {
 
   sealed trait EventParameters
   case class EventParametersA(s: String) extends EventParameters
-//  case class EventParametersB(deprBName: BName) extends EventParameters
+  case class EventParametersB(deprBName: BName) extends EventParameters
 //  case class EventParametersB(@Schema.annotations.deprecated deprBName: BName) extends EventParameters
 //  case class EventParametersC(deprBName: BName) extends EventParameters
 
