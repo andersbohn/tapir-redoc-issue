@@ -16,7 +16,6 @@ object EndpointsSpec extends ZIOSpecDefault {
       val docs: OpenAPI =
         OpenAPIDocsInterpreter().toOpenAPI(List(Endpoints.eventsListing, Endpoints.postEvent), "vague-chipmunk", "1.0.0")
       val yaml = docs.toYaml
-      val x = sys.env.get("REGENERATE_DOCS_YAML")
       if (sys.env.contains("REGENERATE_DOCS_YAML")) {
         Files.write(java.nio.file.Paths.get("./src/test/resources/docs.yaml"), yaml.getBytes(StandardCharsets.UTF_8))
       }

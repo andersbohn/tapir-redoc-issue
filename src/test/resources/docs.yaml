@@ -52,53 +52,68 @@ components:
     Event:
       oneOf:
       - $ref: '#/components/schemas/EventA'
+      - $ref: '#/components/schemas/EventB'
       - $ref: '#/components/schemas/EventC'
       - $ref: '#/components/schemas/EventD'
-      - required:
-        - aName
-        - deprAName
-        - bName
-        type: object
-        properties:
-          aName:
-            $ref: '#/components/schemas/AName'
-          deprAName:
-            required:
-            - s
-            type: object
-            properties:
-              s:
-                type: string
-            deprecated: true
-          bName:
-            $ref: '#/components/schemas/BName'
     EventA:
       required:
       - aName
       - anotherName
+      - eventParameters
       type: object
       properties:
         aName:
           $ref: '#/components/schemas/AName'
         anotherName:
           $ref: '#/components/schemas/AName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
+    EventB:
+      required:
+      - aName
+      - deprAName
+      - bName
+      - eventParameters
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
+        deprAName:
+          $ref: '#/components/schemas/AName'
+        bName:
+          $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
     EventC:
       required:
       - deprBName
       - bName
+      - eventParameters
       type: object
       properties:
         deprBName:
           $ref: '#/components/schemas/BName'
         bName:
           $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
     EventD:
       required:
       - aName
       - bName
+      - eventParameters
       type: object
       properties:
         aName:
           $ref: '#/components/schemas/BName'
         bName:
           $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
+    EventParametersA:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
