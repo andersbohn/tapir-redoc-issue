@@ -3,6 +3,18 @@ info:
   title: vague-chipmunk
   version: 1.0.0
 paths:
+  /events/list/all:
+    get:
+      operationId: getEventsListAll
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
   /events:
     post:
       operationId: postEvents
@@ -47,17 +59,21 @@ components:
       required:
       - aName
       - anotherName
+      - eventParameters
       type: object
       properties:
         aName:
           $ref: '#/components/schemas/AName'
         anotherName:
           $ref: '#/components/schemas/AName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
     EventB:
       required:
       - aName
       - deprAName
       - bName
+      - eventParameters
       type: object
       properties:
         aName:
@@ -66,23 +82,38 @@ components:
           $ref: '#/components/schemas/AName'
         bName:
           $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
     EventC:
       required:
       - deprBName
       - bName
+      - eventParameters
       type: object
       properties:
         deprBName:
           $ref: '#/components/schemas/BName'
         bName:
           $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
     EventD:
       required:
       - aName
       - bName
+      - eventParameters
       type: object
       properties:
         aName:
           $ref: '#/components/schemas/BName'
         bName:
           $ref: '#/components/schemas/BName'
+        eventParameters:
+          $ref: '#/components/schemas/EventParametersA'
+    EventParametersA:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
