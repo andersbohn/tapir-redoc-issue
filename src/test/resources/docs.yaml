@@ -3,18 +3,6 @@ info:
   title: vague-chipmunk
   version: 1.0.0
 paths:
-  /events/list/all:
-    get:
-      operationId: getEventsListAll
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Event'
   /events:
     post:
       operationId: postEvents
@@ -52,26 +40,9 @@ components:
     Event:
       oneOf:
       - $ref: '#/components/schemas/EventA'
+      - $ref: '#/components/schemas/EventB'
       - $ref: '#/components/schemas/EventC'
       - $ref: '#/components/schemas/EventD'
-      - required:
-        - aName
-        - deprAName
-        - bName
-        type: object
-        properties:
-          aName:
-            $ref: '#/components/schemas/AName'
-          deprAName:
-            required:
-            - s
-            type: object
-            properties:
-              s:
-                type: string
-            deprecated: true
-          bName:
-            $ref: '#/components/schemas/BName'
     EventA:
       required:
       - aName
@@ -82,6 +53,19 @@ components:
           $ref: '#/components/schemas/AName'
         anotherName:
           $ref: '#/components/schemas/AName'
+    EventB:
+      required:
+      - aName
+      - deprAName
+      - bName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
+        deprAName:
+          $ref: '#/components/schemas/AName'
+        bName:
+          $ref: '#/components/schemas/BName'
     EventC:
       required:
       - deprBName
