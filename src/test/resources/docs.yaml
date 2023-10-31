@@ -86,7 +86,7 @@ components:
         bName:
           $ref: '#/components/schemas/BName'
         eventParameters:
-          $ref: '#/components/schemas/EventParametersA'
+          $ref: '#/components/schemas/EventParametersB'
     EventC:
       required:
       - deprBName
@@ -99,7 +99,7 @@ components:
         bName:
           $ref: '#/components/schemas/BName'
         eventParameters:
-          $ref: '#/components/schemas/EventParametersA'
+          $ref: '#/components/schemas/EventParametersC'
     EventD:
       required:
       - aName
@@ -116,10 +116,28 @@ components:
     EventParametersA:
       required:
       - s
+      - aName
       type: object
       properties:
         s:
           type: string
+        aName:
+          $ref: '#/components/schemas/AName'
+    EventParametersB:
+      required:
+      - deprBName
+      type: object
+      properties:
+        deprBName:
+          $ref: '#/components/schemas/BName'
+          deprecated: true
+    EventParametersC:
+      required:
+      - deprBName
+      type: object
+      properties:
+        deprBName:
+          $ref: '#/components/schemas/BName'
     EventType:
       oneOf:
       - $ref: '#/components/schemas/EventTypeA'
