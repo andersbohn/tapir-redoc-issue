@@ -54,29 +54,23 @@ components:
       - $ref: '#/components/schemas/EventA'
       - $ref: '#/components/schemas/EventB'
       - $ref: '#/components/schemas/EventC'
-      - $ref: '#/components/schemas/EventD'
     EventA:
       required:
       - aName
       - anotherName
-      - eventParameters
-      - eventType
       type: object
       properties:
         aName:
           $ref: '#/components/schemas/AName'
         anotherName:
           $ref: '#/components/schemas/AName'
-        eventParameters:
-          $ref: '#/components/schemas/EventParametersA'
-        eventType:
-          $ref: '#/components/schemas/EventType'
+        optionAName:
+          $ref: '#/components/schemas/AName'
     EventB:
       required:
       - aName
       - deprAName
       - bName
-      - eventParameters
       type: object
       properties:
         aName:
@@ -84,15 +78,14 @@ components:
         deprAName:
           $ref: '#/components/schemas/AName'
           deprecated: true
+        deprOptionAName:
+          $ref: '#/components/schemas/AName'
         bName:
           $ref: '#/components/schemas/BName'
-        eventParameters:
-          $ref: '#/components/schemas/EventParametersB'
     EventC:
       required:
       - deprBName
       - bName
-      - eventParameters
       type: object
       properties:
         deprBName:
@@ -100,54 +93,3 @@ components:
           deprecated: true
         bName:
           $ref: '#/components/schemas/BName'
-        eventParameters:
-          $ref: '#/components/schemas/EventParametersC'
-    EventD:
-      required:
-      - aName
-      - bName
-      - eventParameters
-      type: object
-      properties:
-        aName:
-          $ref: '#/components/schemas/BName'
-        bName:
-          $ref: '#/components/schemas/BName'
-        eventParameters:
-          $ref: '#/components/schemas/EventParametersA'
-    EventParametersA:
-      required:
-      - s
-      - aName
-      type: object
-      properties:
-        s:
-          type: string
-        aName:
-          $ref: '#/components/schemas/AName'
-    EventParametersB:
-      required:
-      - deprBName
-      type: object
-      properties:
-        deprBName:
-          $ref: '#/components/schemas/BName'
-          deprecated: true
-    EventParametersC:
-      required:
-      - deprBName
-      type: object
-      properties:
-        deprBName:
-          $ref: '#/components/schemas/BName'
-          deprecated: true
-        optCcName:
-          $ref: '#/components/schemas/AName'
-    EventType:
-      oneOf:
-      - $ref: '#/components/schemas/EventTypeA'
-      - $ref: '#/components/schemas/EventTypeB'
-    EventTypeA:
-      type: object
-    EventTypeB:
-      type: object
