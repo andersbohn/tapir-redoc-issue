@@ -1,5 +1,6 @@
-package com.softwaremill
+package dk.andersbohn.tapir.testing
 
+import dk.andersbohn.tapir.testing.Endpoints
 import zio.ZIO
 import zio.test.Assertion._
 import zio.test.{ZIOSpecDefault, assertZIO}

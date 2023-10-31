@@ -1,4 +1,4 @@
-package com.softwaremill
+package dk.andersbohn.tapir.testing
 
 import com.comcast.ip4s.{Host, IpLiteralSyntax, Port}
 import org.http4s.ember.server.EmberServerBuilder
