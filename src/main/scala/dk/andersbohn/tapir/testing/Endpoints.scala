@@ -10,6 +10,8 @@ import zio.{Task, ZIO}
 
 object Endpoints {
 
+  implicitly[Schema[Event]].asIterable[List]
+
   val eventsListing: PublicEndpoint[Unit, Unit, List[Event], Any] = endpoint.get
     .in("events" / "list" / "all")
     .out(jsonBody[List[Event]])
@@ -28,5 +30,3 @@ object Endpoints {
 
   val all: List[ZServerEndpoint[Any, Any]] = apiEndpoints ++ docEndpoints
 }
-
-

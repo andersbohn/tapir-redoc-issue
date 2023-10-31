@@ -60,6 +60,7 @@ components:
       - aName
       - anotherName
       - eventParameters
+      - eventType
       type: object
       properties:
         aName:
@@ -68,6 +69,8 @@ components:
           $ref: '#/components/schemas/AName'
         eventParameters:
           $ref: '#/components/schemas/EventParametersA'
+        eventType:
+          $ref: '#/components/schemas/EventType'
     EventB:
       required:
       - aName
@@ -117,3 +120,11 @@ components:
       properties:
         s:
           type: string
+    EventType:
+      oneOf:
+      - $ref: '#/components/schemas/EventTypeA'
+      - $ref: '#/components/schemas/EventTypeB'
+    EventTypeA:
+      type: object
+    EventTypeB:
+      type: object
