@@ -4,6 +4,11 @@ import sttp.tapir.Schema
 
 object Library {
 
+//  sealed trait Address
+//  case class PostAddress(s: String) extends Address
+//  case class EmailAddress(s: String) extends Address
+//  case class BlockhainAddress(: String) extends Address
+
   sealed trait CcName
   case class AName(s: String) extends CcName
   case class BName(s: String) extends CcName
@@ -12,12 +17,19 @@ object Library {
   case object EventTypeA extends EventType
   case object EventTypeB extends EventType
 
-  sealed trait EventParameters
-  case class EventParametersA(s: String, aName: AName) extends EventParameters
-// TODO introducing another subtype for EventParameters leads to a tapir NPE - like just adding EventParametersB => boom
-//  case class EventParametersB(deprBName: BName) extends EventParameters
-  case class EventParametersB(@Schema.annotations.deprecated deprBName: BName) extends EventParameters
-  case class EventParametersC(deprBName: BName) extends EventParameters
+  sealed trait EventParameters {
+    def ccName: CcName
+  }
+  case class EventParametersA(s: String, aName: AName) extends EventParameters {
+    override def ccName: CcName = aName
+  }
+  case class EventParametersB(@Schema.annotations.deprecated deprBName: BName) extends EventParameters {
+    override def ccName: CcName = deprBName
+  }
+  case class EventParametersC(@Schema.annotations.deprecated deprBName: BName, @Schema.annotations.deprecated optCcName: Option[AName])
+      extends EventParameters {
+    override def ccName: CcName = optCcName.getOrElse(deprBName)
+  }
 
   sealed trait Event {
     def eventParameters: EventParameters

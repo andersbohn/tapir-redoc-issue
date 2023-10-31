@@ -140,6 +140,9 @@ components:
       properties:
         deprBName:
           $ref: '#/components/schemas/BName'
+          deprecated: true
+        optCcName:
+          $ref: '#/components/schemas/AName'
     EventType:
       oneOf:
       - $ref: '#/components/schemas/EventTypeA'
