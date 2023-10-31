@@ -30,13 +30,13 @@ object Library {
   ) extends Event
   case class EventB(
       aName: AName,
-      //      @Schema.annotations.deprecated
+      @Schema.annotations.deprecated
       deprAName: AName,
       bName: BName,
       eventParameters: EventParametersB
   ) extends Event
   case class EventC(
-      //      @Schema.annotations.deprecated
+      @Schema.annotations.deprecated
       deprBName: BName,
       bName: BName,
       eventParameters: EventParametersC
