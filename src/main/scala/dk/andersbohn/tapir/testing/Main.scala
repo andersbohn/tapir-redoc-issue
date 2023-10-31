@@ -1,12 +1,12 @@
-package com.softwaremill
+package dk.andersbohn.tapir.testing
 
-import com.comcast.ip4s.{ Host, IpLiteralSyntax, Port }
+import com.comcast.ip4s.{Host, IpLiteralSyntax, Port}
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.Router
 import sttp.tapir.server.http4s.ztapir.ZHttp4sServerInterpreter
 import zio.interop.catz._
 import zio.stream.interop.fs2z.io.networkInstance
-import zio.{ Console, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault }
+import zio.{Console, Scope, Task, ZIO, ZIOAppArgs, ZIOAppDefault}
 
 object Main extends ZIOAppDefault {
 
@@ -28,7 +28,7 @@ object Main extends ZIOAppDefault {
       .build
       .use { server =>
         for {
-          _ <- Console.printLine(s"Go to http://localhost:${server.address.getPort}/docs to open SwaggerUI. Press ENTER key to exit.")
+          _ <- Console.printLine(s"Go to http://localhost:${server.address.getPort}/docs to open doc. Press ENTER key to exit.")
           _ <- Console.readLine
         } yield ()
       }

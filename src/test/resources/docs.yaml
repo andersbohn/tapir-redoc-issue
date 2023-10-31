@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: vague-chipmunk
+  version: 1.0.0
+paths:
+  /events/list/all:
+    get:
+      operationId: getEventsListAll
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /events:
+    post:
+      operationId: postEvents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        '200':
+          description: ''
+        '400':
+          description: 'Invalid value for: body'
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    AName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+    BName:
+      required:
+      - s
+      type: object
+      properties:
+        s:
+          type: string
+    Event:
+      oneOf:
+      - $ref: '#/components/schemas/EventA'
+      - $ref: '#/components/schemas/EventB'
+      - $ref: '#/components/schemas/EventC'
+    EventA:
+      required:
+      - aName
+      - anotherName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
+        anotherName:
+          $ref: '#/components/schemas/AName'
+        optionAName:
+          $ref: '#/components/schemas/AName'
+    EventB:
+      required:
+      - aName
+      - deprAName
+      - bName
+      type: object
+      properties:
+        aName:
+          $ref: '#/components/schemas/AName'
+        deprAName:
+          $ref: '#/components/schemas/AName'
+          deprecated: true
+        deprOptionAName:
+          $ref: '#/components/schemas/AName'
+        bName:
+          $ref: '#/components/schemas/BName'
+    EventC:
+      required:
+      - deprBName
+      - bName
+      type: object
+      properties:
+        deprBName:
+          $ref: '#/components/schemas/BName'
+          deprecated: true
+        bName:
+          $ref: '#/components/schemas/BName'
