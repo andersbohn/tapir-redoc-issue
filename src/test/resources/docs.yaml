@@ -80,6 +80,7 @@ components:
           deprecated: true
         deprOptionAName:
           $ref: '#/components/schemas/AName'
+          deprecated: true
         bName:
           $ref: '#/components/schemas/BName'
     EventC:
